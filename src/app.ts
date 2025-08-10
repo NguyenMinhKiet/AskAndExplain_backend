@@ -1,0 +1,24 @@
+import express from 'express';
+import mongoose from 'mongoose';
+import { ErrorMiddlewares } from './middlewares/index.middleware.js';
+import Routes from './routes/index.routes.js';
+
+const app = express();
+
+app.use(express.json());
+app.use('/api', Routes);
+app.use(ErrorMiddlewares);
+
+const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/askandexplain';
+
+console.log('Connecting to MongoDB at:', MONGO_URI);
+
+mongoose
+    .connect(MONGO_URI)
+    .then(() => console.log('MongoDB connected'))
+    .catch((err) => {
+        console.error('MongoDB connection error:', err);
+        process.exit(1); // Dừng app nếu không kết nối được DB
+    });
+
+export default app;
