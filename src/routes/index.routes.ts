@@ -5,39 +5,32 @@ import {
     userController,
     questionController,
     answerController,
-    logController,
 } from '../controllers/index.controller.js';
 
-import { AuthMiddlewares, CheckAlreadyLoginMiddlewares } from '../middlewares/index.middleware.js';
+import { AuthMiddlewares, CheckAlreadyLoginMiddlewares, logMiddleware } from '../middlewares/index.middleware.js';
 
 const router = Router();
 
 // Auth
 router.post('/register', AuthController.register);
-router.post('/login', CheckAlreadyLoginMiddlewares, AuthController.login);
+router.post('/login', CheckAlreadyLoginMiddlewares, logMiddleware('auth'), AuthController.login);
 
 // User
-router.get('/users', AuthMiddlewares, userController.getAll);
-router.get('/users/:id', AuthMiddlewares, userController.getById);
-router.put('/users', AuthMiddlewares, userController.update);
-router.delete('/users', AuthMiddlewares, userController.delete);
+router.get('/users', AuthMiddlewares, logMiddleware('users'), userController.getAll);
+router.get('/users/:id', AuthMiddlewares, logMiddleware('users'), userController.getById);
+router.put('/users', AuthMiddlewares, logMiddleware('users'), userController.update);
+router.delete('/users', AuthMiddlewares, logMiddleware('users'), userController.delete);
 
 // Question
-router.get('/questions', AuthMiddlewares, questionController.getAll);
-router.get('/questions/:id', AuthMiddlewares, questionController.getById);
-router.put('/questions', AuthMiddlewares, questionController.update);
-router.delete('/questions', AuthMiddlewares, questionController.delete);
+router.get('/questions', AuthMiddlewares, logMiddleware('questions'), questionController.getAll);
+router.get('/questions/:id', AuthMiddlewares, logMiddleware('questions'), questionController.getById);
+router.post('/questions', AuthMiddlewares, logMiddleware('questions'), questionController.create);
+router.put('/questions', AuthMiddlewares, logMiddleware('questions'), questionController.update);
+router.delete('/questions', AuthMiddlewares, logMiddleware('questions'), questionController.delete);
 
 // Answer
-router.get('/users', AuthMiddlewares, answerController.getAll);
-router.get('/users/:id', AuthMiddlewares, answerController.getById);
-router.put('/users', AuthMiddlewares, answerController.update);
-router.delete('/users', AuthMiddlewares, answerController.delete);
-
-// Log
-router.get('/logs', AuthMiddlewares, logController.getAll);
-router.get('/logs/:id', AuthMiddlewares, logController.getById);
-router.put('/logs', AuthMiddlewares, logController.update);
-router.delete('/logs', AuthMiddlewares, logController.delete);
+router.post('/answers/:questionId', AuthMiddlewares, logMiddleware('answers'), answerController.create);
+router.put('/answers', AuthMiddlewares, logMiddleware('answers'), answerController.update);
+router.delete('/answers', AuthMiddlewares, logMiddleware('answers'), answerController.delete);
 
 export default router;

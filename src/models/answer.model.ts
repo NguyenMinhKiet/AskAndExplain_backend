@@ -1,17 +1,18 @@
-import { Schema, model, Document } from 'mongoose';
+import mongoose, { Schema, model, Document, Types } from 'mongoose';
 import { BadRequestError } from '../utils/errors.js';
-import { IUser, userSchema } from './user.model.js';
 
 export interface IAnswer extends Document {
     content: string;
-    author: IUser;
+    question: Types.ObjectId;
+    author: Types.ObjectId;
     createdAt: Date;
     updatedAt: Date;
 }
 
 export const answerSchema = new Schema<IAnswer>({
     content: { type: String, required: true },
-    author: { type: userSchema, required: true },
+    author: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    question: { type: mongoose.Schema.Types.ObjectId, ref: 'Question', required: true },
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
 });

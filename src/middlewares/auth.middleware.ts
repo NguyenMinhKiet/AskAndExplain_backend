@@ -9,10 +9,9 @@ export default function authMiddleware(req: Request, res: Response, next: NextFu
     }
 
     const token = authHeader.split(' ')[1] as string;
-
     try {
-        const decoded = verifyToken(token) as { userId: string; email: string; name: string };
-        (req as any).user = decoded;
+        const decoded = verifyToken(token) as { userId: string; email?: string; name?: string };
+        req.user = decoded;
         next();
     } catch (error) {
         return res.status(401).json({ message: 'Invalid token' });

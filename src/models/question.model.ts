@@ -1,4 +1,4 @@
-import { Schema, model, Document } from 'mongoose';
+import mongoose, { Schema, model, Document, Types } from 'mongoose';
 import { BadRequestError } from '../utils/errors.js';
 import { IUser, userSchema } from './user.model.js';
 import { answerSchema, IAnswer } from './answer.model.js';
@@ -6,7 +6,7 @@ import { answerSchema, IAnswer } from './answer.model.js';
 export interface IQuestion extends Document {
     title: string;
     description: string;
-    author: IUser;
+    author: Types.ObjectId;
     answerCount: number;
     answers: IAnswer[];
     createdAt: Date;
@@ -16,9 +16,9 @@ export interface IQuestion extends Document {
 const questionSchema = new Schema<IQuestion>({
     title: { type: String, required: true },
     description: { type: String, required: true },
-    author: { type: userSchema, required: true },
+    author: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     answerCount: { type: Number, default: 0 },
-    answers: { type: [answerSchema], default: [] },
+    answers: { type: [mongoose.Schema.Types.ObjectId], ref: 'Answer', default: [] },
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
 });

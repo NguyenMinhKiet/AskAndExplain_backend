@@ -2,10 +2,10 @@ import jwt from 'jsonwebtoken';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your_secret_key';
 
-interface Payload {
+export interface Payload {
     userId: string;
-    email: string;
-    name: string;
+    email?: string;
+    name?: string;
 }
 
 export function signToken(payload: Payload): string {

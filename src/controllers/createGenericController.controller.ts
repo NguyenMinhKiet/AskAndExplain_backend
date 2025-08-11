@@ -1,11 +1,12 @@
 import { Request, Response, NextFunction } from 'express';
-import { FilterQuery } from 'mongoose';
+import mongoose, { FilterQuery, UpdateQuery } from 'mongoose';
 
 type ServiceCRUD<T> = {
+    model: mongoose.Model<T>;
     getAll: () => Promise<T[]>;
     getById: (id: string) => Promise<T | null>;
     create: (data: Partial<T>, uniqueFilter: FilterQuery<T>) => Promise<T>;
-    update: (id: string, data: Partial<T>) => Promise<T | null>;
+    update: (id: string, data: UpdateQuery<T>) => Promise<T | null>;
     delete: (id: string) => Promise<T | null>;
 };
 

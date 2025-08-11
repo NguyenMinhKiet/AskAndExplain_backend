@@ -8,6 +8,7 @@ export interface IUser extends Document {
     name: string;
     role: string;
     createdAt: Date;
+    updatedAt: Date;
 }
 
 export const userSchema = new Schema<IUser>({
@@ -16,10 +17,12 @@ export const userSchema = new Schema<IUser>({
     name: { type: String },
     role: { type: String, default: 'user' },
     createdAt: { type: Date, default: Date.now },
+    updatedAt: { type: Date, default: Date.now },
 });
 
 // Middleware hash password
 userSchema.pre('save', async function (next) {
+    this.updatedAt = new Date(Date.now());
     if (this.isModified('passwordHash')) {
         if (this.passwordHash.length < 6) {
             return next(new BadRequestError('Password must be at least 6 characters'));
