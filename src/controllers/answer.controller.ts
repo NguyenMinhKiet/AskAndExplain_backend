@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import mongoose, { Types } from 'mongoose';
 import { answerServices, questionServices } from '../services/index.service.js';
 import { createCrudController } from './createGenericController.controller.js';
+import { BadRequestError } from '../utils/errors.js';
 
 export const baseAnswerController = createCrudController(answerServices);
 
@@ -13,14 +14,15 @@ export const answerController = {
         try {
             const questionId = req.params.questionId;
             if (!questionId || !mongoose.Types.ObjectId.isValid(questionId)) {
-                return res.status(400).json({ message: 'Invalid or missing question ID' });
+                throw new BadRequestError('Invalid or missing question ID');
             }
-            const { content, author } = req.body.data;
+            const { content, author } = req.body;
 
             if (!author || typeof author !== 'string' || !mongoose.Types.ObjectId.isValid(author)) {
-                return res.status(400).json({ message: 'Invalid or missing author ID' });
+                throw new BadRequestError('Invalid or missing author ID');
             }
 
+            if (!content) throw new BadRequestError('Content is required');
             const dataToCreate = {
                 content,
                 question: new mongoose.Types.ObjectId(questionId),

@@ -5,7 +5,6 @@ import { IUser, User } from '../models/user.model.js';
 import { createGenericService } from './createGenericService.service.js';
 
 export { answerServices } from './answer.service.js';
-
+export { questionServices } from './question.service.js';
 export const userServices = createGenericService<IUser>(User);
-export const questionServices = createGenericService<IQuestion>(Question);
 export const logServices = createGenericService<ILog>(Log);

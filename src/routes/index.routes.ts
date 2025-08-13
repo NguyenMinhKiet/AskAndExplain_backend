@@ -16,14 +16,14 @@ router.post('/register', AuthController.register);
 router.post('/login', CheckAlreadyLoginMiddlewares, logMiddleware('auth'), AuthController.login);
 
 // User
-router.get('/users', AuthMiddlewares, logMiddleware('users'), userController.getAll);
-router.get('/users/:id', AuthMiddlewares, logMiddleware('users'), userController.getById);
+router.get('/users', userController.getAll);
+router.get('/users/:id', logMiddleware('users'), userController.getById);
 router.put('/users', AuthMiddlewares, logMiddleware('users'), userController.update);
 router.delete('/users', AuthMiddlewares, logMiddleware('users'), userController.delete);
 
 // Question
-router.get('/questions', AuthMiddlewares, logMiddleware('questions'), questionController.getAll);
-router.get('/questions/:id', AuthMiddlewares, logMiddleware('questions'), questionController.getById);
+router.get('/questions', questionController.getAll);
+router.get('/questions/:id', logMiddleware('questions'), questionController.getById);
 router.post('/questions', AuthMiddlewares, logMiddleware('questions'), questionController.create);
 router.put('/questions', AuthMiddlewares, logMiddleware('questions'), questionController.update);
 router.delete('/questions', AuthMiddlewares, logMiddleware('questions'), questionController.delete);

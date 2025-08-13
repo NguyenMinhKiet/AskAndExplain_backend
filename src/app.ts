@@ -2,10 +2,18 @@ import express from 'express';
 import mongoose from 'mongoose';
 import { ErrorMiddlewares } from './middlewares/index.middleware.js';
 import Routes from './routes/index.routes.js';
+import cors from 'cors';
 
 const app = express();
 
 app.use(express.json());
+
+app.use(
+    cors({
+        origin: 'http://localhost:5173', // cho phép từ frontend
+        credentials: true, // nếu có dùng cookie/session
+    }),
+);
 
 app.use('/api', Routes);
 app.use(ErrorMiddlewares);
