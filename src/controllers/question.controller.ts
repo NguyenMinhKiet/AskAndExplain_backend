@@ -12,13 +12,13 @@ export const questionController = {
     // Overwrite
     async create(req: Request, res: Response, next: NextFunction) {
         try {
-            const { title, description, author } = req.body;
-            if (!title || !description || !author) {
+            const { title, content, author } = req.body;
+            if (!title || !content || !author) {
                 throw new BadRequestError('Input is empty');
             }
             const dataToCreate = {
                 title,
-                description,
+                content,
                 author: new mongoose.Types.ObjectId(author),
             };
 

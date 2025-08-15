@@ -40,8 +40,8 @@ export function createCrudController<T>(service: ServiceCRUD<T>) {
         },
         async update(req: Request, res: Response, next: NextFunction) {
             try {
-                const { id, data } = req.body;
-                const updatedItem = await service.update(id, data);
+                const { _id, data } = req.body;
+                const updatedItem = await service.update(_id, data);
                 res.json({ message: 'Updated successfully', data: updatedItem });
             } catch (err) {
                 next(err);

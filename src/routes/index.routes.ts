@@ -31,6 +31,7 @@ router.delete('/questions', AuthMiddlewares, logMiddleware('questions'), questio
 // Answer
 router.post('/answers/:questionId', AuthMiddlewares, logMiddleware('answers'), answerController.create);
 router.put('/answers', AuthMiddlewares, logMiddleware('answers'), answerController.update);
+router.put('/answers/updateVote', AuthMiddlewares, logMiddleware('answers'), answerController.updateVote);
 router.delete('/answers', AuthMiddlewares, logMiddleware('answers'), answerController.delete);
 
 export default router;
