@@ -1,0 +1,1 @@
+{"version":3,"file":"question.controller.d.ts","sourceRoot":"","sources":["../../src/controllers/question.controller.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,OAAO,EAAE,QAAQ,EAAE,YAAY,EAAE,MAAM,SAAS,CAAC;AAM1D,eAAO,MAAM,sBAAsB;;;;;;CAAyC,CAAC;AAE7E,eAAO,MAAM,kBAAkB;gBAIT,OAAO,OAAO,QAAQ,QAAQ,YAAY;gBAkB1C,OAAO,OAAO,QAAQ,QAAQ,YAAY;iBASzC,OAAO,OAAO,QAAQ,QAAQ,YAAY;;;CAShE,CAAC"}
