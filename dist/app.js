@@ -8,7 +8,7 @@ const app = express();
 app.use(express.json());
 app.use(
     cors({
-        origin: ['http://localhost:5173', 'https://askandexplain-frontend.vercel.app/'], // cho phép từ frontend
+        origin: ['http://localhost:5173', 'https://askandexplain-frontend.vercel.app'], // cho phép từ frontend
         credentials: true, // nếu có dùng cookie/session
     }),
 );
