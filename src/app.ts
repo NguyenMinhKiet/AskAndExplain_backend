@@ -11,8 +11,8 @@ app.use(express.json());
 
 app.use(
     cors({
-        origin: 'http://localhost:5173', // cho phép từ frontend
-        credentials: true, // nếu có dùng cookie/session
+        origin: ['http://localhost:5173', 'https://askandexplain-frontend.vercel.app'],
+        credentials: true,
     }),
 );
 
@@ -28,7 +28,7 @@ mongoose
     .then(() => console.log('MongoDB connected'))
     .catch((err) => {
         console.error('MongoDB connection error:', err);
-        process.exit(1); // Dừng app nếu không kết nối được DB
+        process.exit(1);
     });
 
 export default app;
